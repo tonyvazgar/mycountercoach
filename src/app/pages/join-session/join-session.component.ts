@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-join-session',
-  imports: [],
   templateUrl: './join-session.component.html',
-  styleUrl: './join-session.component.css'
+  styleUrl: './join-session.component.css',
+  standalone: true,
+  imports: [RouterLink],
 })
 export class JoinSessionComponent {
 
