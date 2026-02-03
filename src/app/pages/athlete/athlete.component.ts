@@ -9,6 +9,9 @@ import {
 import { RouterModule } from '@angular/router';
 import { SessionTemplate } from '../../models/session.model';
 import { SessionService } from '../../services/session.service';
+import { AthleteResult } from '../../models/result.model';
+
+const RESULTS_KEY = 'mycountercoach_results';
 
 @Component({
   selector: 'app-athlete',
@@ -20,6 +23,7 @@ import { SessionService } from '../../services/session.service';
 export class AthleteComponent implements OnInit {
   form!: FormGroup;
   session!: SessionTemplate;
+  results: AthleteResult = {};
 
   // 🔴 Simula el template que vendría del coach
   sessionTemplate = {
@@ -56,6 +60,11 @@ export class AthleteComponent implements OnInit {
       exercises: this.fb.array([]),
     });
 
+    const saved = localStorage.getItem(RESULTS_KEY);
+    if (saved) {
+      this.results = JSON.parse(saved);
+    }
+
     this.buildFromTemplate();
   }
 
@@ -89,4 +98,22 @@ export class AthleteComponent implements OnInit {
   finishSession() {
     console.log(this.form.value);
   }
+  updateResult(exIndex: number, colIndex: number, value: any) {
+    if (!this.results[exIndex]) {
+      this.results[exIndex] = {};
+    }
+    this.results[exIndex][colIndex] = value;
+
+    localStorage.setItem(RESULTS_KEY, JSON.stringify(this.results));
+  }
+
+  finish() {
+    console.log('Resultados atleta:', this.results);
+    alert('Sesión terminada (ver consola)');
+    localStorage.removeItem(RESULTS_KEY);
+    this.sessionService.clearSession();
+    alert('Sesión terminada');
+  }
+
+
 }
