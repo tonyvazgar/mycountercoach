@@ -1,2 +1,35 @@
 <h2>Crear sesión (Coach)</h2>
 <a routerLink="/">Volver</a>
+
+<button (click)="addExercise()">+ Agregar ejercicio</button>
+
+<div *ngFor="let exercise of exercises.controls; let i = index" [formGroup]="getExerciseGroup(i)">
+
+  <input placeholder="Nombre del ejercicio" formControlName="name" />
+
+  <button (click)="removeExercise(i)">Eliminar ejercicio</button>
+
+  <div>
+    <strong>Columnas</strong>
+    <button (click)="addColumn(i)">+ Columna</button>
+  </div>
+
+  <div *ngFor="let col of getColumns(i).controls; let j = index" [formGroup]="getColumnGroup(i, j)">
+    <input placeholder="Etiqueta" formControlName="label" />
+    <select formControlName="type">
+      <option value="number">Número</option>
+      <option value="time">Tiempo</option>
+    </select>
+  </div>
+
+</div>
+
+<hr />
+
+<h3>Reglas</h3>
+<textarea rows="4" formControlName="rules"></textarea>
+
+<hr />
+
+<h3>Preview JSON (temporal)</h3>
+<pre>{{ form.value | json }}</pre>
