@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "build:gh": "ng build --configuration production --base-href /mycountercoach/",
-    "deploy:gh": "gh-pages -d dist/my-counter-coach"
+    "deploy:gh": "gh-pages -d dist/my-counter-coach/browser"
   },
   "private": true,
   "dependencies": {
