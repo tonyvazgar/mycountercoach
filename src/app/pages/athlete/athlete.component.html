@@ -1,0 +1,43 @@
+<h2>Sesión del atleta</h2>
+<a routerLink="/">Salir</a>
+
+<label>
+  Nombre del atleta:
+  <input formControlName="athleteName" />
+</label>
+
+<hr />
+
+<div formArrayName="exercises">
+
+  <div *ngFor="let ex of exercises.controls; let i = index" [formGroupName]="i">
+
+    <h3>{{ ex.get('name')?.value }}</h3>
+
+    <div formArrayName="values">
+
+      <div *ngFor="let val of getValues(i).controls; let j = index"
+           [formGroupName]="j">
+
+        <label>
+          {{ val.get('label')?.value }}:
+          <input
+            [type]="val.get('type')?.value === 'number' ? 'number' : 'text'"
+            formControlName="value"
+          />
+        </label>
+
+      </div>
+
+    </div>
+
+    <hr />
+
+  </div>
+
+</div>
+
+<button (click)="finishSession()">Finalizar sesión</button>
+
+<h3>Preview JSON</h3>
+<pre>{{ form.value | json }}</pre>
