@@ -8,6 +8,21 @@
 
 <hr />
 
+<p><strong>Reglas:</strong></p>
+<p>{{ session.rules }}</p>
+
+<div *ngFor="let ex of session.exercises">
+  <h3>{{ ex.name }}</h3>
+
+  <div *ngFor="let col of ex.columns">
+    <label>{{ col.label }}</label>
+    <input [type]="col.type === 'number' ? 'number' : 'text'" />
+  </div>
+
+  <hr />
+</div>
+
+
 <div formArrayName="exercises">
 
   <div *ngFor="let ex of exercises.controls; let i = index" [formGroupName]="i">

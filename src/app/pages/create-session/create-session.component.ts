@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {
   FormArray,
   FormBuilder,
@@ -8,6 +8,7 @@ import {
   FormControl,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-create-session',
@@ -19,7 +20,11 @@ import { CommonModule } from '@angular/common';
 export class CreateSessionComponent {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private sessionService: SessionService,
+    private router: Router,
+  ) {
     this.form = this.fb.group({
       rules: [''],
       exercises: this.fb.array([]),
@@ -62,5 +67,15 @@ export class CreateSessionComponent {
   }
   getExerciseGroup(index: number): FormGroup {
     return this.exercises.at(index) as FormGroup;
+  }
+
+  saveSession() {
+    const template = {
+      id: crypto.randomUUID(),
+      ...this.form.value,
+    };
+
+    this.sessionService.setSession(template);
+    this.router.navigate(['/join']);
   }
 }
