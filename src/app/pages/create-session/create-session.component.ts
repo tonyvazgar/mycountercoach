@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import {
   FormArray,
   FormBuilder,
@@ -9,13 +9,24 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SessionService } from '../../services/session.service';
+import { MatCard, MatCardModule } from "@angular/material/card";
+import { MatButtonModule } from '@angular/material/button';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-create-session',
   templateUrl: './create-session.component.html',
   styleUrl: './create-session.component.css',
   standalone: true,
-  imports: [RouterLink, CommonModule, ReactiveFormsModule],
+  imports: [RouterLink, CommonModule, ReactiveFormsModule, MatCard, CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatCardModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule],
 })
 export class CreateSessionComponent {
   form: FormGroup;
